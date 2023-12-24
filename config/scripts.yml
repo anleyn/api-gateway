@@ -1,0 +1,4 @@
+1: neso/analytics/utm_grub.js # Захват UTM в input-ы
+2: neso/fields/utm_fields.js # Создание input-ов для UTM
+3: neso/fields/ed_idstart.js # Создание input-ов для ID обучения и даты
+4: neso/system/disable_sys_orders.js # Отключение системных заказов в разделе "покупки"

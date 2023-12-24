@@ -1,0 +1,47 @@
+application:
+  name: KHTechAPI
+  version: 0.0.5.111223
+  description: API module KHTech
+  mode: release
+  port: 22327
+  debug: true
+  debugLevel: debug
+  timeZone: Europe/Moscow
+
+environment:
+  db-khtapi:
+    user: DB_KHTAPI_USER
+    password: DB_KHTAPI_PASSWORD
+    host: localhost
+    port: 22327
+  gc-test:
+    domain: gc.khudoley.pro
+    key: GC_APIKEY_KHTECH
+  gc-neso:
+    domain: lk.nesoacademie.com
+    key: GC_APIKEY_NESO
+  gc-dnt:
+    domain: denginatrendah.ru
+    key: GC_APIKEY_DNT
+
+routes:
+  testsRouters:
+    enabled: true
+    path: /routes/tests
+  visitsRouters:
+    enabled: true
+    path: /routes/analytics
+  regsRouters:
+    enabled: true
+    path: /routes/analytics
+
+controllers:
+  testVivaOauthController:
+    enabled: true
+    path: /test/VivaOauth
+  visitTildaController:
+    enabled: true
+    path: /visit/tilda
+  regTildaController:
+    enabled: true
+    path: /reg/tilda
