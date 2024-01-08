@@ -1,6 +1,12 @@
 clients:
-  trandford: C544BFE1
+  test: 8C3D3C4AM
+  trandford: 4AM3UD8C
+  neso: 5F6C3D3C
 controllers:
   testVivaOauthController: 345345
   visitTildaController: 234234
   regTildaController: 456456
+  gcController: 567567
+  userGCController: 678678
+  orderGCController: 789789
+  fillGSController: 890890

@@ -55,28 +55,41 @@ app.get('/', (req, res) => {
  * Запускает сервер.
  */
 function startServer () {
-  if (cluster.isPrimary) {
-    logger.info(`[${dateToString.now()}] Запуск сервера начался - Master ${process.pid} запускается.`)
-
-    for (let i = 0; i < numCPUs; i++) {
-      cluster.fork()
-    }
-
-    cluster.on('online', worker => {
-      logger.info(`[${dateToString.now()}] Worker ${worker.process.pid} запущен и находится в режиме онлайн.`)
-    })
-
-    process.on('SIGINT', handleSigint)
-  } else {
+  if (MODE === 'test') {
+    // Запуск сервера в тестовом режиме без кластеризации
+    logger.info(`[${dateToString.now()}] Запуск сервера в тестовом режиме на порту ${PORT}.`)
     const server = https.createServer(options, app)
     server.listen(PORT, () => {
-      logger.info(`[${dateToString.now()}] Worker ${process.pid} успешно запущен и слушает порт ${PORT}.`)
-      process.send({ ready: true, worker: cluster.worker.id })
+      logger.info(`[${dateToString.now()}] Тестовый сервер запущен и слушает порт ${PORT}.`)
     })
-
     server.on('error', (error) => {
-      logger.error(`[${dateToString.now()}] Ошибка при запуске сервера: ${error.message}`)
+      logger.error(`[${dateToString.now()}] Ошибка при запуске тестового сервера: ${error.message}`)
     })
+  } else {
+    // Запуск сервера с использованием кластеризации
+    if (cluster.isPrimary) {
+      logger.info(`[${dateToString.now()}] Запуск сервера начался - Master ${process.pid} запускается.`)
+
+      for (let i = 0; i < numCPUs; i++) {
+        cluster.fork()
+      }
+
+      cluster.on('online', worker => {
+        logger.info(`[${dateToString.now()}] Worker ${worker.process.pid} запущен и находится в режиме онлайн.`)
+      })
+
+      process.on('SIGINT', handleSigint)
+    } else {
+      const server = https.createServer(options, app)
+      server.listen(PORT, () => {
+        logger.info(`[${dateToString.now()}] Worker ${process.pid} успешно запущен и слушает порт ${PORT}.`)
+        process.send({ ready: true, worker: cluster.worker.id })
+      })
+
+      server.on('error', (error) => {
+        logger.error(`[${dateToString.now()}] Ошибка при запуске сервера: ${error.message}`)
+      })
+    }
   }
 }
 

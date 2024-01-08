@@ -5,7 +5,7 @@ application:
   mode: release
   port: 22327
   debug: true
-  debugLevel: debug
+  debugLevel: info
   timeZone: Europe/Moscow
 
 environment:
@@ -26,7 +26,7 @@ environment:
 
 routes:
   testsRouters:
-    enabled: true
+    enabled: false
     path: /routes/tests
   visitsRouters:
     enabled: true
@@ -34,10 +34,16 @@ routes:
   regsRouters:
     enabled: true
     path: /routes/analytics
+  GCRouters:
+    enabled: true
+    path: /routes/external
+  GSRouters:
+    enabled: true
+    path: /routes/external
 
 controllers:
   testVivaOauthController:
-    enabled: true
+    enabled: false
     path: /test/VivaOauth
   visitTildaController:
     enabled: true
@@ -45,3 +51,15 @@ controllers:
   regTildaController:
     enabled: true
     path: /reg/tilda
+  # TODO: Complete the userGCController implementation
+  userGCController:
+    enabled: false
+    path: /gc/user
+  orderGCController:
+    enabled: true
+    path: /gc/order
+  fillGSController:
+    enabled: true
+    path: /gsheets/fill
+    apps:
+      - AKfycbw-0XVaesXVkPk1basGdUiMKfozFn_OsFg7vKL53StrYXcH0kppW5o50fHg0-iYzS_M
