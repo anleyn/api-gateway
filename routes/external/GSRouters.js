@@ -55,7 +55,7 @@ if (!CONFIG.routes[ROUTER_NAME].enabled) {
    */
   router.get(fillGSControllerPath, (req, res) => {
     const requestId = uuid()
-    logger.debug(`[ID запроса: ${requestId}] Получен GET запрос на ${req.path}. Данные запроса: ${JSON.stringify(req.query)}`)
+    logger.info(`[ID запроса: ${requestId}] Получен GET запрос на ${req.path}. Данные запроса: ${JSON.stringify(req.query)}`)
     fillGSController.handle(req, res, requestId)
   })
 
@@ -69,7 +69,7 @@ if (!CONFIG.routes[ROUTER_NAME].enabled) {
    */
   router.post(fillGSControllerPath, (req, res) => {
     const requestId = uuid()
-    logger.debug(`[ID запроса: ${requestId}] Получен POST запрос на ${req.path}. Данные запроса: ${JSON.stringify(req.body)}`)
+    logger.info(`[ID запроса: ${requestId}] Получен POST запрос на ${req.path}. Данные запроса: ${JSON.stringify(req.body)}`)
     fillGSController.handle(req, res, requestId)
   })
 }

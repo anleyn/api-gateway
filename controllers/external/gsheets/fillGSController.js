@@ -120,7 +120,7 @@ module.exports.handle = async (request, response, strRequestId) => {
   }
 
   try {
-    logger.info(`[ID запроса: ${strRequestId}] Контроллер активирован, обрабатываемые данные: ${JSON.stringify(request.body)}`)
+    logger.debug(`[ID запроса: ${strRequestId}] Контроллер активирован, обрабатываемые данные: ${JSON.stringify(request.body)}`)
 
     const strKey = extractKey(request)
     libSec.checkKey(CONTROLLER_NAME, strKey)
@@ -144,9 +144,9 @@ module.exports.handle = async (request, response, strRequestId) => {
     const objOutgoingData = createOutgoingData(objIncomingData)
     logger.debug(`[ID запроса: ${strRequestId}] Объект для заполнения таблицы: ${JSON.stringify(objOutgoingData)}`)
 
-    logger.info(`[ID запроса: ${strRequestId}] Обращаемся к сервису для отправки объекта в таблицу`)
+    logger.debug(`[ID запроса: ${strRequestId}] Обращаемся к сервису для отправки объекта в таблицу`)
     const result = await fillTableService.handle(strRequestId, strGId, strGList, objOutgoingData)
-    logger.info(`[ID запроса: ${strRequestId}] Результат заполнения: ${JSON.stringify(result)}`)
+    logger.debug(`[ID запроса: ${strRequestId}] Результат заполнения: ${JSON.stringify(result)}`)
 
     logger.debug(`[ID запроса: ${strRequestId}] Запрос обработан, возвращаем ответ. Продолжительность: ${Date.now() - startTime}ms`)
     response.status(200).send(JSON.stringify(result))
